@@ -1,0 +1,29 @@
+package com.ahorro.familiar.data.network
+
+import com.ahorro.familiar.data.model.*
+import retrofit2.Response
+import retrofit2.http.*
+
+interface AhorroApiService {
+
+    @GET("metas")
+    suspend fun getMetas(): Response<List<Meta>>
+
+    @GET("metas/{id}")
+    suspend fun getDetalleMeta(@Path("id") id: Int): Response<Meta>
+
+    @POST("metas")
+    suspend fun crearMeta(@Body request: CrearMetaRequest): Response<Meta>
+
+    @POST("metas/{id}/miembros")
+    suspend fun agregarMiembro(
+        @Path("id") metaId: Int,
+        @Body request: AgregarMiembroRequest
+    ): Response<Miembro>
+
+    @GET("metas/{id}/pagos")
+    suspend fun getPagosDeMeta(@Path("id") metaId: Int): Response<List<Pago>>
+
+    @POST("pagos")
+    suspend fun registrarPago(@Body request: CrearPagoRequest): Response<Pago>
+}
